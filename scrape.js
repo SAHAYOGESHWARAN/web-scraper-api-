@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import fs from "fs"; // Import the 'fs' module for file operations
 
 const scrape = async () => {
     const browser = await puppeteer.launch();
@@ -40,8 +41,11 @@ const scrape = async () => {
         });
     }); 
 
-    // Log the extracted book data
-    console.log(books);
+    // Save the scraped data to a JSON file
+    fs.writeFileSync('books.json', JSON.stringify(books, null, 2));
+
+    // Log a success message
+    console.log('Data saved to books.json');
 
     // Close the browser
     await browser.close();
